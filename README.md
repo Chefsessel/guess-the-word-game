@@ -1,9 +1,12 @@
 <<<<<<< HEAD
+<<<<<<< HEAD
 # ajax-poll
 Ajax Poll that writes results to .txt and shows results with graphics
 
 Based on the w3schools Tutorial for an ajax poll, enhanced with a redirect for users who already voted (via cookie) and a much improved front-end.
 =======
+=======
+>>>>>>> 460013536cb8dae6603836e6f8eb5adef4cb2081
 # guess-the-word-game
 ## A simple Hangman variation in HTML5 / JavaScript
 
@@ -13,4 +16,7 @@ For the ease of doing, words are stored as simple strings in an array, so it's e
 
 # Licence
 Licence file is included. Basically do whatever you want to do with it. Use it, abuse it. Free as in free beer.
+<<<<<<< HEAD
+>>>>>>> 460013536cb8dae6603836e6f8eb5adef4cb2081
+=======
 >>>>>>> 460013536cb8dae6603836e6f8eb5adef4cb2081
