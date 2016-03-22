@@ -1,0 +1,172 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="utf-8" />
+<title>A Hangman Variation in HTML5 / JavaScript</title>
+<link href='css/style.css' rel='stylesheet' type='text/css'>
+<link href='https://fonts.googleapis.com/css?family=Droid+Sans' rel='stylesheet' type='text/css'>
+</head>
+
+<body onLoad="reset(); return true;">
+<div id="wrapper">
+<div id="headline"><h1>Can you guess the word?</h1></div>
+<div id="graphics"><img id="hangman" src="img/start.png" alt="Graphic hangman" /></div>
+<div id="interface">
+	<label for="solution">The solution: <input type="text" id="thesolution" size="14"></label>
+	<label for="used">Used letters: <input type="text" id="used_letters" size="18"></label>
+	<label for="tries">Tries left: <input type="text" id="tries_left" size="2" value="10"></label>
+
+
+	<h2 class="cb">Choose a letter:</h2>
+		<div class="keys">
+							<a href="javascript:selectLetter('Q');"><span>Q</span></a>
+							<a href="javascript:selectLetter('W');"><span>W</span></a>
+							<a href="javascript:selectLetter('E');"><span>E</span></a>
+							<a href="javascript:selectLetter('R');"><span>R</span></a>
+							<a href="javascript:selectLetter('T');"><span>T</span></a>
+							<a href="javascript:selectLetter('Y');"><span>Y</span></a>
+							<a href="javascript:selectLetter('U');"><span>U</span></a>
+							<a href="javascript:selectLetter('I');"><span>I</span></a>
+							<a href="javascript:selectLetter('O');"><span>O</span></a>
+							<a href="javascript:selectLetter('P');"><span>P</span></a>
+							
+							<a href="javascript:selectLetter('A');"><span>A</span></a>
+							<a href="javascript:selectLetter('S');"><span>S</span></a>
+							<a href="javascript:selectLetter('D');"><span>D</span></a>
+							<a href="javascript:selectLetter('F');"><span>F</span></a>
+							<a href="javascript:selectLetter('G');"><span>G</span></a>
+							<a href="javascript:selectLetter('H');"><span>H</span></a>
+							<a href="javascript:selectLetter('J');"><span>J</span></a>
+							<a href="javascript:selectLetter('K');"><span>K</span></a>
+							<a href="javascript:selectLetter('L');"><span>L</span></a>
+							
+							<a href="javascript:selectLetter('Z');"><span>Z</span></a>
+							<a href="javascript:selectLetter('X');"><span>X</span></a>
+							<a href="javascript:selectLetter('C');"><span>C</span></a>
+							<a href="javascript:selectLetter('V');"><span>V</span></a>
+							<a href="javascript:selectLetter('B');"><span>B</span></a>
+							<a href="javascript:selectLetter('N');"><span>N</span></a>
+							<a href="javascript:selectLetter('M');"><span>M</span></a>
+		</div>
+</div>
+</div>
+
+<div id="won" class="modalDialog" style="display:none;">
+	<div>
+		<a href="index.html" title="Close" class="close">X</a>
+		<h3>Congratulations - you won!</h3>
+		<p>I'm really proud of your word-guessing-skills, but can you do it <a href="index.html">again?</p>
+	</div>
+</div>
+<div id="gameover" class="modalDialog" style="display:none;">
+	<div>
+		<a href="index.html" title="Close" class="close">X</a>
+		<h3>Haha - you have lost!!</h3>
+		<p>See the poor soul hanging over there? Well, your fault! Better luck <a href="index.html">next time</a>.</p>
+	</div>
+</div>
+
+
+<script>
+var can_play = true;
+var words = new Array("BLACKBERRY", "MONITOR", "INSTRAGRAM", "TWITTER", "INTERNET", "GOOGLE", "FACEBOOK", "MISSISSIPPI", "RUSSIA", "GYPSY", "BREADCRUMB", "DATABASE", "TECHNOLOGY", "TELEPHONE", "MOBILEPHONE", "NEWSLETTER", "INTRANET", "SNAPCHAT", "APPLE", "ANDROID", "WHATSAPP");
+
+var to_guess = "";
+var display_word = "";
+var used_letters = "";
+var wrong_guesses = 0;
+
+function selectLetter(l) {
+if (can_play == false) {
+return;
+}
+
+if (used_letters.indexOf(l) != -1)
+{
+alert('used already');
+return;
+}	
+used_letters += l;
+document.getElementById("used_letters").value = used_letters;
+	
+if (to_guess.indexOf(l) != -1) {
+ // correct letter guess
+pos = 0;
+temp_mask = display_word;
+
+while (to_guess.indexOf(l, pos) != -1) {
+pos = to_guess.indexOf(l, pos);			
+end = pos + 1;
+
+start_text = temp_mask.substring(0, pos);
+end_text = temp_mask.substring(end, temp_mask.length);
+
+temp_mask = start_text + l + end_text;
+pos = end;
+}
+
+display_word = temp_mask;
+
+document.getElementById("thesolution").value = display_word;
+if (display_word.indexOf("*") == -1) {
+// case won
+can_play = false;
+window.location.href = '#won';
+document.getElementById("won").style.display = 'block';
+}
+}
+	else {
+	// incorrect letter guess
+	wrong_guesses += 1;
+	tries_left = 10 - wrong_guesses;
+	document.getElementById("tries_left").value = tries_left;
+	document.getElementById("hangman").src="img/" + wrong_guesses + ".png"
+
+		if (wrong_guesses == 10) {
+		// case lost
+		can_play = false;
+		window.location.href = '#gameover';
+		document.getElementById("gameover").style.display = 'block';
+		}
+	}
+}
+
+function reset()
+{
+selectWord();
+document.getElementById("used_letters").value = "";
+used_letters = "";
+wrong_guesses = 0;
+document.getElementById("hangman").src="img/start.png";
+}
+
+
+function selectWord()
+{
+can_play = true;
+random_number = Math.round(Math.random() * (words.length - 1));
+to_guess = words[random_number];
+	
+// display masked word
+masked_word = createMask(to_guess);
+document.getElementById("thesolution").value = masked_word;
+display_word = masked_word;
+}
+
+function createMask(m)
+{
+mask = "";
+word_length = m.length;
+
+
+for (i = 0; i < word_length; i ++)
+{
+mask += "*";
+}
+return mask;
+}
+
+</script>
+</body>
+</html>
+

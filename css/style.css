@@ -1,0 +1,96 @@
+/* === GENERAL PAGE STYLE === */
+body {font: 15px/1.4 'Droid Sans', 'sans serif';background:#eaeaea;}
+#headline {background:#316e33;text-align:center;padding:5px;}
+#wrapper {margin:0 auto;width:680px;}
+#graphics {text-align:center;margin-top:10px;}
+#interface {padding:10px 10px;}
+
+/* === HEADINGS === */
+h1 {color:#fff;}
+h2 {color:#444;font-size:16px;}
+h3 {color:#fff;}
+
+/* === INPUT === */
+input {background:none;border:0 none;border-radius:3px;font-size:16px;letter-spacing:2px;}
+
+/* === CSS KEYS === */
+.keys span {
+	float:left;
+	position:relative;
+	top:0;
+	cursor:pointer;
+	width: 66px;
+	height: 36px;
+	background: white;
+	border-radius: 3px;
+	box-shadow: 0px 4px rgba(0, 0, 0, 0.2);
+	margin: 0 7px 11px 0;
+	color: #888;
+	line-height: 36px;
+	text-align: center;
+	transition: all 0.1s ease;
+	text-decoration:none;
+}
+.keys a {text-decoration:none;color:#888;}
+.keys span.clear {background: #eee;color: white;box-shadow: 0px 4px #ddd;}
+.keys span:active {box-shadow: 0px 0px #ccc;top: 3px;}
+.top span.clear:active {top: 3px;box-shadow: 0px 0px #ccc;}
+
+/* === WIN/LOSE MODAL === */
+.modalDialog {
+	position: fixed;
+	top: 0;
+	right: 0;
+	bottom: 0;
+	left: 0;
+	background: rgba(0,0,0,0.8);
+	z-index: 99999;
+	opacity:0;
+	-webkit-transition: opacity 400ms ease-in;
+	-moz-transition: opacity 400ms ease-in;
+	transition: opacity 400ms ease-in;
+	pointer-events: none;
+}
+
+.modalDialog:target {
+	opacity:1;
+	pointer-events: auto;
+}
+
+.modalDialog > div {
+	width: 450px;
+	position: relative;
+	margin: 25% auto;
+	padding: 5px 20px 13px 20px;
+	border-radius: 10px;
+	color:#fff;
+	font-size:16px;
+	background: #316e33;
+}
+
+.modalDialog > div a {color:#fff;}
+
+.close {
+	background: #606061;
+	color: #FFFFFF;
+	line-height: 25px;
+	position: absolute;
+	right: -12px;
+	text-align: center;
+	top: -10px;
+	width: 24px;
+	text-decoration: none;
+	font-weight: bold;
+	-webkit-border-radius: 12px;
+	-moz-border-radius: 12px;
+	border-radius: 12px;
+	-moz-box-shadow: 1px 1px 3px #000;
+	-webkit-box-shadow: 1px 1px 3px #000;
+	box-shadow: 1px 1px 3px #000;
+}
+.close:hover { background: #da3434;}
+
+/* === ETC. === */
+.left {float:left;}
+hr {border:1px solid #eaeaea;}
+.cb {clear:both;padding-top:20px;}
